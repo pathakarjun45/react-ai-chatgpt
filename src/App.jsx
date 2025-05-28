@@ -24,7 +24,11 @@ function App() {
     if (question) {
       if (localStorage.getItem('history')) {
         let history = JSON.parse(localStorage.getItem('history'))
+        history=history.slice(0, 19);
         history = [question, ...history]
+        history = [...new Set(history)]
+        history = history.map((item)=>
+        item.charAt(0).toUpperCase()+item.slice(1).trim());
         localStorage.setItem('history', JSON.stringify(history))
         setRecentHistory(history)
       } else {
@@ -74,7 +78,7 @@ function App() {
   }
 
   useEffect(() => {
-    console.log(selectedHistory);
+   // console.log(selectedHistory);
     askQuestion();
 
   }, [selectedHistory])
@@ -82,7 +86,7 @@ function App() {
   // dark mode feature
   const [darkMode,setDarkMode]=useState('dark');
   useEffect(()=>{
-    console.log(darkMode);
+    //console.log(darkMode);
     if(darkMode=='dark'){
       document.documentElement.classList.add('dark')
     }else{
